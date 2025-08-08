@@ -1,0 +1,20 @@
+{
+  "metadata": {
+    "package": "invalid"
+  },
+  "functions": {
+    "invalid_function": {
+      "args": ["a", "b"],
+      "return": "Number",
+      "actions": [
+        {
+          "type": "function_call",
+          "function": "println",
+          "args": [
+            "This is invalid JSON because there's a missing closing brace
+          ]
+        }
+      ]
+    }
+  }
+}
