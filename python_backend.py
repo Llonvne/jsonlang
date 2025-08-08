@@ -464,9 +464,67 @@ class JSONLangRuntime:
                 # 获取函数的modifiers
                 func_modifiers = func_data.get('modifiers', [])
                 
-                # 应用每个modifier
+                # 应用每个显式指定的modifier
                 for modifier_name in func_modifiers:
                     self.apply_modifier(program, func_name, func_data, modifier_name)
+                
+                # 应用auto_apply的modifiers
+                for modifier in program.modifiers:
+                    if isinstance(modifier, dict) and modifier.get('auto_apply', False):
+                        modifier_name = modifier.get('name')
+                        if modifier_name and modifier_name not in func_modifiers:
+                            self.apply_modifier(program, func_name, func_data, modifier_name)
+                
+                # 如果启用了debug模式，打印函数信息
+                if program.metadata.get('debug_modifiers', False):
+                    self.debug_function(func_name, func_data)
+    
+    def debug_function(self, func_name: str, func_data: Dict[str, Any]):
+        """打印函数信息，用于调试modifiers应用后的结果"""
+        print(f"\n[DEBUG] Function after modifiers: {func_name}")
+        print("=" * 50)
+        
+        # 打印函数基本信息
+        visibility = func_data.get('visibility', 'public')
+        return_type = func_data.get('return', 'void')
+        args = func_data.get('args', [])
+        modifiers = func_data.get('modifiers', [])
+        
+        print(f"Visibility: {visibility}")
+        print(f"Return type: {return_type}")
+        
+        # 打印参数
+        if args:
+            print("Arguments:")
+            for arg in args:
+                if isinstance(arg, dict):
+                    arg_name = arg.get('name', '')
+                    arg_type = arg.get('type', '')
+                    print(f"  - {arg_name}: {arg_type}")
+                else:
+                    print(f"  - {arg}")
+        else:
+            print("Arguments: None")
+        
+        # 打印应用的modifiers
+        if modifiers:
+            print("Applied modifiers:")
+            for mod in modifiers:
+                print(f"  - {mod}")
+        else:
+            print("Applied modifiers: None")
+        
+        # 打印actions数量
+        actions = func_data.get('actions', [])
+        print(f"Actions count: {len(actions)}")
+        
+        # 打印其他自定义属性
+        print("Other properties:")
+        for key, value in func_data.items():
+            if key not in ['visibility', 'return', 'args', 'modifiers', 'actions']:
+                print(f"  - {key}: {value}")
+        
+        print("=" * 50)
     
     def apply_modifier(self, program: JSONProgram, func_name: str, func_data: Dict[str, Any], modifier_name: str):
         """应用单个modifier到函数"""

@@ -937,15 +937,105 @@ func runJSONProgram(filename string, backend *GoBackend) error {
 func applyModifiers(program *JSONProgram) {
 	for funcName, funcData := range program.Functions {
 		// 获取函数的modifiers
+		var funcModifiers []string
 		if modifiers, ok := funcData["modifiers"].([]interface{}); ok {
-			// 应用每个modifier
+			// 应用每个显式指定的modifier
 			for _, modifierName := range modifiers {
 				if name, ok := modifierName.(string); ok {
+					funcModifiers = append(funcModifiers, name)
 					applyModifier(program, funcName, funcData, name)
 				}
 			}
 		}
+		
+		// 应用auto_apply的modifiers
+		for _, modifier := range program.Modifiers {
+			if autoApply, ok := modifier["auto_apply"].(bool); ok && autoApply {
+				if name, ok := modifier["name"].(string); ok {
+					// 检查modifier是否已经应用
+					alreadyApplied := false
+					for _, appliedName := range funcModifiers {
+						if appliedName == name {
+							alreadyApplied = true
+							break
+						}
+					}
+					
+					if !alreadyApplied {
+						applyModifier(program, funcName, funcData, name)
+					}
+				}
+			}
+		}
+		
+		// 如果启用了debug模式，打印函数信息
+		if metadata, ok := program.Metadata["debug_modifiers"].(bool); ok && metadata {
+			debugFunction(funcName, funcData)
+		}
 	}
+}
+
+// 打印函数信息，用于调试modifiers应用后的结果
+func debugFunction(funcName string, funcData map[string]interface{}) {
+	fmt.Printf("\n[DEBUG] Function after modifiers: %s\n", funcName)
+	fmt.Println("==================================================")
+	
+	// 打印函数基本信息
+	visibility, _ := funcData["visibility"].(string)
+	if visibility == "" {
+		visibility = "public"
+	}
+	
+	returnType, _ := funcData["return"].(string)
+	if returnType == "" {
+		returnType = "void"
+	}
+	
+	fmt.Printf("Visibility: %s\n", visibility)
+	fmt.Printf("Return type: %s\n", returnType)
+	
+	// 打印参数
+	if args, ok := funcData["args"].([]interface{}); ok && len(args) > 0 {
+		fmt.Println("Arguments:")
+		for _, arg := range args {
+			if argMap, ok := arg.(map[string]interface{}); ok {
+				argName, _ := argMap["name"].(string)
+				argType, _ := argMap["type"].(string)
+				fmt.Printf("  - %s: %s\n", argName, argType)
+			} else {
+				fmt.Printf("  - %v\n", arg)
+			}
+		}
+	} else {
+		fmt.Println("Arguments: None")
+	}
+	
+	// 打印应用的modifiers
+	if modifiers, ok := funcData["modifiers"].([]interface{}); ok && len(modifiers) > 0 {
+		fmt.Println("Applied modifiers:")
+		for _, mod := range modifiers {
+			fmt.Printf("  - %v\n", mod)
+		}
+	} else {
+		fmt.Println("Applied modifiers: None")
+	}
+	
+	// 打印actions数量
+	var actionsCount int
+	if actions, ok := funcData["actions"].([]interface{}); ok {
+		actionsCount = len(actions)
+	}
+	fmt.Printf("Actions count: %d\n", actionsCount)
+	
+	// 打印其他自定义属性
+	fmt.Println("Other properties:")
+	for key, value := range funcData {
+		if key != "visibility" && key != "return" && key != "args" && key != "modifiers" && key != "actions" {
+			fmt.Printf("  - %s: %v\n", key, value)
+		}
+	}
+	
+	fmt.Println("==================================================")
 }
 
 // 应用单个modifier到函数
