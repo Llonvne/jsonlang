@@ -1,0 +1,63 @@
+{
+  "metadata": {
+    "name": "Modifier Test",
+    "version": "1.0.0",
+    "debug_modifiers": true
+  },
+  "imports": {
+    "println": "jsonlang.println"
+  },
+  "modifiers": [
+    {
+      "name": "ExplicitModifier",
+      "actions": [
+        {
+          "type": "assignment",
+          "target": "function.description",
+          "value": "This function was modified by ExplicitModifier"
+        }
+      ]
+    },
+    {
+      "name": "AutoModifier",
+      "auto_apply": true,
+      "actions": [
+        {
+          "type": "assignment",
+          "target": "function.auto_applied",
+          "value": true
+        }
+      ]
+    }
+  ],
+  "functions": {
+    "main": {
+      "modifiers": ["ExplicitModifier"],
+      "actions": [
+        {
+          "type": "function_call",
+          "function": "println",
+          "args": [
+            "Testing modifiers with auto_apply and debug function"
+          ]
+        },
+        {
+          "type": "function_call",
+          "function": "testFunction",
+          "args": []
+        }
+      ]
+    },
+    "testFunction": {
+      "actions": [
+        {
+          "type": "function_call",
+          "function": "println",
+          "args": [
+            "This is a test function"
+          ]
+        }
+      ]
+    }
+  }
+}
