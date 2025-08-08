@@ -1,0 +1,366 @@
+{
+  "backend": "go",
+  "version": "1.0.0",
+  "description": "JSONLang Go后端标准库",
+  "functions": {
+    "println": {
+      "name": "Println",
+      "description": "打印并换行",
+      "args": ["message"],
+      "return_type": "Unit",
+      "implementation": "fmt.Println"
+    },
+    "print": {
+      "name": "Print",
+      "description": "打印不换行",
+      "args": ["message"],
+      "return_type": "Unit",
+      "implementation": "fmt.Print"
+    },
+    "printf": {
+      "name": "Printf",
+      "description": "格式化打印",
+      "args": ["format", "args"],
+      "return_type": "Unit",
+      "implementation": "fmt.Printf"
+    },
+    "input": {
+      "name": "ReadLine",
+      "description": "获取用户输入",
+      "args": ["prompt"],
+      "return_type": "String",
+      "implementation": "bufio.NewReader"
+    },
+    "read_file": {
+      "name": "ReadFile",
+      "description": "读取文件内容",
+      "args": ["filename"],
+      "return_type": "String",
+      "implementation": "ioutil.ReadFile"
+    },
+    "write_file": {
+      "name": "WriteFile",
+      "description": "写入文件内容",
+      "args": ["filename", "content"],
+      "return_type": "Boolean",
+      "implementation": "ioutil.WriteFile"
+    },
+    "add": {
+      "name": "Add",
+      "description": "加法运算",
+      "args": ["a", "b"],
+      "return_type": "Number",
+      "implementation": "math.Add"
+    },
+    "subtract": {
+      "name": "Subtract",
+      "description": "减法运算",
+      "args": ["a", "b"],
+      "return_type": "Number",
+      "implementation": "math.Subtract"
+    },
+    "multiply": {
+      "name": "Multiply",
+      "description": "乘法运算",
+      "args": ["a", "b"],
+      "return_type": "Number",
+      "implementation": "math.Multiply"
+    },
+    "divide": {
+      "name": "Divide",
+      "description": "除法运算",
+      "args": ["a", "b"],
+      "return_type": "Number",
+      "implementation": "math.Divide"
+    },
+    "power": {
+      "name": "Pow",
+      "description": "幂运算",
+      "args": ["base", "exponent"],
+      "return_type": "Number",
+      "implementation": "math.Pow"
+    },
+    "sqrt": {
+      "name": "Sqrt",
+      "description": "平方根",
+      "args": ["x"],
+      "return_type": "Number",
+      "implementation": "math.Sqrt"
+    },
+    "abs": {
+      "name": "Abs",
+      "description": "绝对值",
+      "args": ["x"],
+      "return_type": "Number",
+      "implementation": "math.Abs"
+    },
+    "floor": {
+      "name": "Floor",
+      "description": "向下取整",
+      "args": ["x"],
+      "return_type": "Number",
+      "implementation": "math.Floor"
+    },
+    "ceil": {
+      "name": "Ceil",
+      "description": "向上取整",
+      "args": ["x"],
+      "return_type": "Number",
+      "implementation": "math.Ceil"
+    },
+    "round": {
+      "name": "Round",
+      "description": "四舍五入",
+      "args": ["x"],
+      "return_type": "Number",
+      "implementation": "math.Round"
+    },
+    "concat": {
+      "name": "Concat",
+      "description": "字符串连接",
+      "args": ["strings"],
+      "return_type": "String",
+      "implementation": "strings.Join"
+    },
+    "length": {
+      "name": "Len",
+      "description": "字符串长度",
+      "args": ["s"],
+      "return_type": "Number",
+      "implementation": "len"
+    },
+    "substring": {
+      "name": "Substring",
+      "description": "子字符串",
+      "args": ["s", "start", "end"],
+      "return_type": "String",
+      "implementation": "strings.Substring"
+    },
+    "to_upper": {
+      "name": "ToUpper",
+      "description": "转换为大写",
+      "args": ["s"],
+      "return_type": "String",
+      "implementation": "strings.ToUpper"
+    },
+    "to_lower": {
+      "name": "ToLower",
+      "description": "转换为小写",
+      "args": ["s"],
+      "return_type": "String",
+      "implementation": "strings.ToLower"
+    },
+    "trim": {
+      "name": "Trim",
+      "description": "去除首尾空白",
+      "args": ["s"],
+      "return_type": "String",
+      "implementation": "strings.TrimSpace"
+    },
+    "split": {
+      "name": "Split",
+      "description": "分割字符串",
+      "args": ["s", "delimiter"],
+      "return_type": "Array",
+      "implementation": "strings.Split"
+    },
+    "join": {
+      "name": "Join",
+      "description": "连接数组",
+      "args": ["array", "delimiter"],
+      "return_type": "String",
+      "implementation": "strings.Join"
+    },
+    "array_create": {
+      "name": "MakeSlice",
+      "description": "创建数组",
+      "args": ["items"],
+      "return_type": "Array",
+      "implementation": "make"
+    },
+    "array_push": {
+      "name": "Append",
+      "description": "向数组添加元素",
+      "args": ["array", "item"],
+      "return_type": "Array",
+      "implementation": "append"
+    },
+    "array_pop": {
+      "name": "Pop",
+      "description": "从数组移除最后一个元素",
+      "args": ["array"],
+      "return_type": "Any",
+      "implementation": "slice.Pop"
+    },
+    "array_get": {
+      "name": "Get",
+      "description": "获取数组元素",
+      "args": ["array", "index"],
+      "return_type": "Any",
+      "implementation": "slice.Get"
+    },
+    "array_set": {
+      "name": "Set",
+      "description": "设置数组元素",
+      "args": ["array", "index", "value"],
+      "return_type": "Array",
+      "implementation": "slice.Set"
+    },
+    "array_length": {
+      "name": "Len",
+      "description": "获取数组长度",
+      "args": ["array"],
+      "return_type": "Number",
+      "implementation": "len"
+    },
+    "array_sort": {
+      "name": "Sort",
+      "description": "排序数组",
+      "args": ["array", "reverse"],
+      "return_type": "Array",
+      "implementation": "sort.Sort"
+    },
+    "array_reverse": {
+      "name": "Reverse",
+      "description": "反转数组",
+      "args": ["array"],
+      "return_type": "Array",
+      "implementation": "slice.Reverse"
+    },
+    "sleep": {
+      "name": "Sleep",
+      "description": "暂停执行",
+      "args": ["seconds"],
+      "return_type": "Unit",
+      "implementation": "time.Sleep"
+    },
+    "random": {
+      "name": "Random",
+      "description": "生成0-1之间的随机数",
+      "args": [],
+      "return_type": "Number",
+      "implementation": "rand.Float64"
+    },
+    "random_int": {
+      "name": "RandomInt",
+      "description": "生成指定范围内的随机整数",
+      "args": ["min_val", "max_val"],
+      "return_type": "Number",
+      "implementation": "rand.Intn"
+    },
+    "time_now": {
+      "name": "Now",
+      "description": "获取当前时间戳",
+      "args": [],
+      "return_type": "Number",
+      "implementation": "time.Now"
+    },
+    "exit": {
+      "name": "Exit",
+      "description": "退出程序",
+      "args": ["code"],
+      "return_type": "Unit",
+      "implementation": "os.Exit"
+    },
+    "to_string": {
+      "name": "ToString",
+      "description": "转换为字符串",
+      "args": ["value"],
+      "return_type": "String",
+      "implementation": "fmt.Sprintf"
+    },
+    "to_number": {
+      "name": "ToNumber",
+      "description": "转换为数字",
+      "args": ["value"],
+      "return_type": "Number",
+      "implementation": "strconv.ParseFloat"
+    },
+    "to_boolean": {
+      "name": "ToBoolean",
+      "description": "转换为布尔值",
+      "args": ["value"],
+      "return_type": "Boolean",
+      "implementation": "strconv.ParseBool"
+    },
+    "is_empty": {
+      "name": "IsEmpty",
+      "description": "检查是否为空",
+      "args": ["value"],
+      "return_type": "Boolean",
+      "implementation": "utils.IsEmpty"
+    },
+    "is_number": {
+      "name": "IsNumber",
+      "description": "检查是否为数字",
+      "args": ["value"],
+      "return_type": "Boolean",
+      "implementation": "utils.IsNumber"
+    },
+    "is_string": {
+      "name": "IsString",
+      "description": "检查是否为字符串",
+      "args": ["value"],
+      "return_type": "Boolean",
+      "implementation": "utils.IsString"
+    },
+    "is_array": {
+      "name": "IsArray",
+      "description": "检查是否为数组",
+      "args": ["value"],
+      "return_type": "Boolean",
+      "implementation": "utils.IsArray"
+    },
+    "is_boolean": {
+      "name": "IsBoolean",
+      "description": "检查是否为布尔值",
+      "args": ["value"],
+      "return_type": "Boolean",
+      "implementation": "utils.IsBoolean"
+    }
+  },
+  "types": {
+    "Unit": {
+      "type": "unit",
+      "description": "无返回值类型",
+      "go_type": "interface{}"
+    },
+    "String": {
+      "type": "string",
+      "description": "字符串类型",
+      "go_type": "string"
+    },
+    "Number": {
+      "type": "number",
+      "description": "数字类型",
+      "go_type": "float64"
+    },
+    "Boolean": {
+      "type": "boolean",
+      "description": "布尔类型",
+      "go_type": "bool"
+    },
+    "Array": {
+      "type": "array",
+      "description": "数组类型",
+      "go_type": "[]interface{}"
+    },
+    "Any": {
+      "type": "any",
+      "description": "任意类型",
+      "go_type": "interface{}"
+    }
+  },
+  "imports": {
+    "fmt": "fmt",
+    "strings": "strings",
+    "strconv": "strconv",
+    "math": "math",
+    "time": "time",
+    "rand": "math/rand",
+    "os": "os",
+    "ioutil": "io/ioutil",
+    "bufio": "bufio",
+    "sort": "sort"
+  }
+}

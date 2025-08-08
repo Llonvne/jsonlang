@@ -1,0 +1,77 @@
+{
+  "metadata": {
+    "package": "cn.llonvne"
+  },
+  "imports": {
+    "jsonlang.String": "String",
+    "jsonlang.Unit": "Unit",
+    "jsonlang.io.println": "println",
+    "cn.llonvne.mylib.hello": "hello"
+  },
+  "modifiers": [
+    {
+      "name": "function_default_modifiers",
+      "target": "function",
+      "condiction": "package.modifiers == undefined",
+      "auto_apply": true,
+      "actions": [
+        {
+          "type": "assignment",
+          "target": "functions.modifiers",
+          "value": [
+            "noargs",
+            "noreturn",
+            "public"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "noargs",
+      "target": "function",
+      "condiction": "function.args == undefined",
+      "actions": [
+        {
+          "type": "assignment",
+          "target": "function.args",
+          "value": "[]"
+        }
+      ]
+    },
+    {
+      "name": "noreturn",
+      "target": "function",
+      "condiction": "function.return == undefined",
+      "actions": [
+        {
+          "type": "assignment",
+          "target": "function.return",
+          "value": "Unit"
+        }
+      ]
+    },
+    {
+      "name": "public",
+      "target": "function",
+      "condiction": "function.modifiers == undefined",
+      "actions": [
+        {
+          "type": "assignment",
+          "target": "function.visibility",
+          "value": "public"
+        }
+      ]
+    }
+  ],
+  "functions": {
+    "main": {
+      "actions": [
+        {
+          "type": "function_call",
+          "function": "imports.hello",
+          "args": []
+        }
+      ]
+    }
+  }
+}

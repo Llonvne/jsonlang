@@ -1,0 +1,29 @@
+{
+  "metadata": {
+    "package": "cn.llonvne"
+  },
+  "imports": {
+    "jsonlang.String": "String",
+    "jsonlang.Unit": "Unit",
+    "jsonlang.io.println": "println"
+  },
+  "functions": {
+    "hello": {
+      "visibility": "public",
+      "args": [],
+      "return": "imports.Unit",
+      "actions": [
+        {
+          "type": "function_call",
+          "function": "imports.println",
+          "args": [
+            {
+              "type": "imports.String",
+              "value": "HelloWorld!"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

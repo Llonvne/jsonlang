@@ -1,0 +1,341 @@
+{
+  "backend": "python",
+  "version": "1.0.0",
+  "description": "JSONLang Python后端标准库",
+  "functions": {
+    "println": {
+      "name": "println",
+      "description": "打印并换行",
+      "args": ["message"],
+      "return_type": "Unit",
+      "implementation": "print"
+    },
+    "print": {
+      "name": "print",
+      "description": "打印不换行",
+      "args": ["message"],
+      "return_type": "Unit",
+      "implementation": "print_no_newline"
+    },
+    "input": {
+      "name": "input",
+      "description": "获取用户输入",
+      "args": ["prompt"],
+      "return_type": "String",
+      "implementation": "input"
+    },
+    "read_file": {
+      "name": "read_file",
+      "description": "读取文件内容",
+      "args": ["filename"],
+      "return_type": "String",
+      "implementation": "read_file"
+    },
+    "write_file": {
+      "name": "write_file",
+      "description": "写入文件内容",
+      "args": ["filename", "content"],
+      "return_type": "Boolean",
+      "implementation": "write_file"
+    },
+    "add": {
+      "name": "add",
+      "description": "加法运算",
+      "args": ["a", "b"],
+      "return_type": "Number",
+      "implementation": "add"
+    },
+    "subtract": {
+      "name": "subtract",
+      "description": "减法运算",
+      "args": ["a", "b"],
+      "return_type": "Number",
+      "implementation": "subtract"
+    },
+    "multiply": {
+      "name": "multiply",
+      "description": "乘法运算",
+      "args": ["a", "b"],
+      "return_type": "Number",
+      "implementation": "multiply"
+    },
+    "divide": {
+      "name": "divide",
+      "description": "除法运算",
+      "args": ["a", "b"],
+      "return_type": "Number",
+      "implementation": "divide"
+    },
+    "power": {
+      "name": "power",
+      "description": "幂运算",
+      "args": ["base", "exponent"],
+      "return_type": "Number",
+      "implementation": "power"
+    },
+    "sqrt": {
+      "name": "sqrt",
+      "description": "平方根",
+      "args": ["x"],
+      "return_type": "Number",
+      "implementation": "sqrt"
+    },
+    "abs": {
+      "name": "abs",
+      "description": "绝对值",
+      "args": ["x"],
+      "return_type": "Number",
+      "implementation": "abs"
+    },
+    "floor": {
+      "name": "floor",
+      "description": "向下取整",
+      "args": ["x"],
+      "return_type": "Number",
+      "implementation": "floor"
+    },
+    "ceil": {
+      "name": "ceil",
+      "description": "向上取整",
+      "args": ["x"],
+      "return_type": "Number",
+      "implementation": "ceil"
+    },
+    "round": {
+      "name": "round",
+      "description": "四舍五入",
+      "args": ["x", "decimals"],
+      "return_type": "Number",
+      "implementation": "round"
+    },
+    "concat": {
+      "name": "concat",
+      "description": "字符串连接",
+      "args": ["strings"],
+      "return_type": "String",
+      "implementation": "concat"
+    },
+    "length": {
+      "name": "length",
+      "description": "字符串长度",
+      "args": ["s"],
+      "return_type": "Number",
+      "implementation": "length"
+    },
+    "substring": {
+      "name": "substring",
+      "description": "子字符串",
+      "args": ["s", "start", "end"],
+      "return_type": "String",
+      "implementation": "substring"
+    },
+    "to_upper": {
+      "name": "to_upper",
+      "description": "转换为大写",
+      "args": ["s"],
+      "return_type": "String",
+      "implementation": "to_upper"
+    },
+    "to_lower": {
+      "name": "to_lower",
+      "description": "转换为小写",
+      "args": ["s"],
+      "return_type": "String",
+      "implementation": "to_lower"
+    },
+    "trim": {
+      "name": "trim",
+      "description": "去除首尾空白",
+      "args": ["s"],
+      "return_type": "String",
+      "implementation": "trim"
+    },
+    "split": {
+      "name": "split",
+      "description": "分割字符串",
+      "args": ["s", "delimiter"],
+      "return_type": "Array",
+      "implementation": "split"
+    },
+    "join": {
+      "name": "join",
+      "description": "连接数组",
+      "args": ["array", "delimiter"],
+      "return_type": "String",
+      "implementation": "join"
+    },
+    "array_create": {
+      "name": "array_create",
+      "description": "创建数组",
+      "args": ["items"],
+      "return_type": "Array",
+      "implementation": "array_create"
+    },
+    "array_push": {
+      "name": "array_push",
+      "description": "向数组添加元素",
+      "args": ["array", "item"],
+      "return_type": "Array",
+      "implementation": "array_push"
+    },
+    "array_pop": {
+      "name": "array_pop",
+      "description": "从数组移除最后一个元素",
+      "args": ["array"],
+      "return_type": "Any",
+      "implementation": "array_pop"
+    },
+    "array_get": {
+      "name": "array_get",
+      "description": "获取数组元素",
+      "args": ["array", "index"],
+      "return_type": "Any",
+      "implementation": "array_get"
+    },
+    "array_set": {
+      "name": "array_set",
+      "description": "设置数组元素",
+      "args": ["array", "index", "value"],
+      "return_type": "Array",
+      "implementation": "array_set"
+    },
+    "array_length": {
+      "name": "array_length",
+      "description": "获取数组长度",
+      "args": ["array"],
+      "return_type": "Number",
+      "implementation": "array_length"
+    },
+    "array_sort": {
+      "name": "array_sort",
+      "description": "排序数组",
+      "args": ["array", "reverse"],
+      "return_type": "Array",
+      "implementation": "array_sort"
+    },
+    "array_reverse": {
+      "name": "array_reverse",
+      "description": "反转数组",
+      "args": ["array"],
+      "return_type": "Array",
+      "implementation": "array_reverse"
+    },
+    "sleep": {
+      "name": "sleep",
+      "description": "暂停执行",
+      "args": ["seconds"],
+      "return_type": "Unit",
+      "implementation": "sleep"
+    },
+    "random": {
+      "name": "random",
+      "description": "生成0-1之间的随机数",
+      "args": [],
+      "return_type": "Number",
+      "implementation": "random"
+    },
+    "random_int": {
+      "name": "random_int",
+      "description": "生成指定范围内的随机整数",
+      "args": ["min_val", "max_val"],
+      "return_type": "Number",
+      "implementation": "random_int"
+    },
+    "time_now": {
+      "name": "time_now",
+      "description": "获取当前时间戳",
+      "args": [],
+      "return_type": "Number",
+      "implementation": "time_now"
+    },
+    "exit": {
+      "name": "exit",
+      "description": "退出程序",
+      "args": ["code"],
+      "return_type": "Unit",
+      "implementation": "exit"
+    },
+    "to_string": {
+      "name": "to_string",
+      "description": "转换为字符串",
+      "args": ["value"],
+      "return_type": "String",
+      "implementation": "to_string"
+    },
+    "to_number": {
+      "name": "to_number",
+      "description": "转换为数字",
+      "args": ["value"],
+      "return_type": "Number",
+      "implementation": "to_number"
+    },
+    "to_boolean": {
+      "name": "to_boolean",
+      "description": "转换为布尔值",
+      "args": ["value"],
+      "return_type": "Boolean",
+      "implementation": "to_boolean"
+    },
+    "is_empty": {
+      "name": "is_empty",
+      "description": "检查是否为空",
+      "args": ["value"],
+      "return_type": "Boolean",
+      "implementation": "is_empty"
+    },
+    "is_number": {
+      "name": "is_number",
+      "description": "检查是否为数字",
+      "args": ["value"],
+      "return_type": "Boolean",
+      "implementation": "is_number"
+    },
+    "is_string": {
+      "name": "is_string",
+      "description": "检查是否为字符串",
+      "args": ["value"],
+      "return_type": "Boolean",
+      "implementation": "is_string"
+    },
+    "is_array": {
+      "name": "is_array",
+      "description": "检查是否为数组",
+      "args": ["value"],
+      "return_type": "Boolean",
+      "implementation": "is_array"
+    },
+    "is_boolean": {
+      "name": "is_boolean",
+      "description": "检查是否为布尔值",
+      "args": ["value"],
+      "return_type": "Boolean",
+      "implementation": "is_boolean"
+    }
+  },
+  "types": {
+    "Unit": {
+      "type": "unit",
+      "description": "无返回值类型"
+    },
+    "String": {
+      "type": "string",
+      "description": "字符串类型"
+    },
+    "Number": {
+      "type": "number",
+      "description": "数字类型"
+    },
+    "Boolean": {
+      "type": "boolean",
+      "description": "布尔类型"
+    },
+    "Array": {
+      "type": "array",
+      "description": "数组类型"
+    },
+    "Any": {
+      "type": "any",
+      "description": "任意类型"
+    }
+  }
+}

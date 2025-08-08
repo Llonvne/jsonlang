@@ -1,0 +1,791 @@
+{
+  "metadata": {
+    "package": "jsonlang",
+    "version": "1.0.0",
+    "description": "JSONLang标准库接口规范"
+  },
+  "interface": {
+    "println": {
+      "description": "打印并换行",
+      "args": [
+        {
+          "type": "jsonlang.String",
+          "name": "message",
+          "required": true,
+          "description": "要打印的消息"
+        }
+      ],
+      "return": {
+        "type": "jsonlang.Unit",
+        "description": "无返回值"
+      }
+    },
+    "print": {
+      "description": "打印不换行",
+      "args": [
+        {
+          "type": "jsonlang.String",
+          "name": "message",
+          "required": true,
+          "description": "要打印的消息"
+        }
+      ],
+      "return": {
+        "type": "jsonlang.Unit",
+        "description": "无返回值"
+      }
+    },
+    "input": {
+      "description": "获取用户输入",
+      "args": [
+        {
+          "type": "jsonlang.String",
+          "name": "prompt",
+          "required": false,
+          "description": "提示信息",
+          "default": ""
+        }
+      ],
+      "return": {
+        "type": "jsonlang.String",
+        "description": "用户输入的内容"
+      }
+    },
+    "read_file": {
+      "description": "读取文件内容",
+      "args": [
+        {
+          "type": "jsonlang.String",
+          "name": "filename",
+          "required": true,
+          "description": "文件名"
+        }
+      ],
+      "return": {
+        "type": "jsonlang.String",
+        "description": "文件内容"
+      }
+    },
+    "write_file": {
+      "description": "写入文件内容",
+      "args": [
+        {
+          "type": "jsonlang.String",
+          "name": "filename",
+          "required": true,
+          "description": "文件名"
+        },
+        {
+          "type": "jsonlang.String",
+          "name": "content",
+          "required": true,
+          "description": "要写入的内容"
+        }
+      ],
+      "return": {
+        "type": "jsonlang.Boolean",
+        "description": "是否成功"
+      }
+    },
+    "add": {
+      "description": "加法运算",
+      "args": [
+        {
+          "type": "jsonlang.Number",
+          "name": "a",
+          "required": true,
+          "description": "第一个数"
+        },
+        {
+          "type": "jsonlang.Number",
+          "name": "b",
+          "required": true,
+          "description": "第二个数"
+        }
+      ],
+      "return": {
+        "type": "jsonlang.Number",
+        "description": "两数之和"
+      }
+    },
+    "subtract": {
+      "description": "减法运算",
+      "args": [
+        {
+          "type": "jsonlang.Number",
+          "name": "a",
+          "required": true,
+          "description": "被减数"
+        },
+        {
+          "type": "jsonlang.Number",
+          "name": "b",
+          "required": true,
+          "description": "减数"
+        }
+      ],
+      "return": {
+        "type": "jsonlang.Number",
+        "description": "两数之差"
+      }
+    },
+    "multiply": {
+      "description": "乘法运算",
+      "args": [
+        {
+          "type": "jsonlang.Number",
+          "name": "a",
+          "required": true,
+          "description": "第一个数"
+        },
+        {
+          "type": "jsonlang.Number",
+          "name": "b",
+          "required": true,
+          "description": "第二个数"
+        }
+      ],
+      "return": {
+        "type": "jsonlang.Number",
+        "description": "两数之积"
+      }
+    },
+    "divide": {
+      "description": "除法运算",
+      "args": [
+        {
+          "type": "jsonlang.Number",
+          "name": "a",
+          "required": true,
+          "description": "被除数"
+        },
+        {
+          "type": "jsonlang.Number",
+          "name": "b",
+          "required": true,
+          "description": "除数"
+        }
+      ],
+      "return": {
+        "type": "jsonlang.Number",
+        "description": "两数之商"
+      }
+    },
+    "power": {
+      "description": "幂运算",
+      "args": [
+        {
+          "type": "jsonlang.Number",
+          "name": "base",
+          "required": true,
+          "description": "底数"
+        },
+        {
+          "type": "jsonlang.Number",
+          "name": "exponent",
+          "required": true,
+          "description": "指数"
+        }
+      ],
+      "return": {
+        "type": "jsonlang.Number",
+        "description": "幂运算结果"
+      }
+    },
+    "sqrt": {
+      "description": "平方根",
+      "args": [
+        {
+          "type": "jsonlang.Number",
+          "name": "x",
+          "required": true,
+          "description": "要计算平方根的数"
+        }
+      ],
+      "return": {
+        "type": "jsonlang.Number",
+        "description": "平方根"
+      }
+    },
+    "abs": {
+      "description": "绝对值",
+      "args": [
+        {
+          "type": "jsonlang.Number",
+          "name": "x",
+          "required": true,
+          "description": "要计算绝对值的数"
+        }
+      ],
+      "return": {
+        "type": "jsonlang.Number",
+        "description": "绝对值"
+      }
+    },
+    "floor": {
+      "description": "向下取整",
+      "args": [
+        {
+          "type": "jsonlang.Number",
+          "name": "x",
+          "required": true,
+          "description": "要取整的数"
+        }
+      ],
+      "return": {
+        "type": "jsonlang.Number",
+        "description": "向下取整结果"
+      }
+    },
+    "ceil": {
+      "description": "向上取整",
+      "args": [
+        {
+          "type": "jsonlang.Number",
+          "name": "x",
+          "required": true,
+          "description": "要取整的数"
+        }
+      ],
+      "return": {
+        "type": "jsonlang.Number",
+        "description": "向上取整结果"
+      }
+    },
+    "round": {
+      "description": "四舍五入",
+      "args": [
+        {
+          "type": "jsonlang.Number",
+          "name": "x",
+          "required": true,
+          "description": "要四舍五入的数"
+        },
+        {
+          "type": "jsonlang.Number",
+          "name": "decimals",
+          "required": false,
+          "description": "小数位数",
+          "default": 0
+        }
+      ],
+      "return": {
+        "type": "jsonlang.Number",
+        "description": "四舍五入结果"
+      }
+    },
+    "concat": {
+      "description": "字符串连接",
+      "args": [
+        {
+          "type": "jsonlang.String",
+          "name": "strings",
+          "required": true,
+          "description": "要连接的字符串列表",
+          "variadic": true
+        }
+      ],
+      "return": {
+        "type": "jsonlang.String",
+        "description": "连接后的字符串"
+      }
+    },
+    "length": {
+      "description": "字符串长度",
+      "args": [
+        {
+          "type": "jsonlang.String",
+          "name": "s",
+          "required": true,
+          "description": "要计算长度的字符串"
+        }
+      ],
+      "return": {
+        "type": "jsonlang.Number",
+        "description": "字符串长度"
+      }
+    },
+    "substring": {
+      "description": "子字符串",
+      "args": [
+        {
+          "type": "jsonlang.String",
+          "name": "s",
+          "required": true,
+          "description": "原字符串"
+        },
+        {
+          "type": "jsonlang.Number",
+          "name": "start",
+          "required": true,
+          "description": "开始位置"
+        },
+        {
+          "type": "jsonlang.Number",
+          "name": "end",
+          "required": false,
+          "description": "结束位置"
+        }
+      ],
+      "return": {
+        "type": "jsonlang.String",
+        "description": "子字符串"
+      }
+    },
+    "to_upper": {
+      "description": "转换为大写",
+      "args": [
+        {
+          "type": "jsonlang.String",
+          "name": "s",
+          "required": true,
+          "description": "要转换的字符串"
+        }
+      ],
+      "return": {
+        "type": "jsonlang.String",
+        "description": "大写字符串"
+      }
+    },
+    "to_lower": {
+      "description": "转换为小写",
+      "args": [
+        {
+          "type": "jsonlang.String",
+          "name": "s",
+          "required": true,
+          "description": "要转换的字符串"
+        }
+      ],
+      "return": {
+        "type": "jsonlang.String",
+        "description": "小写字符串"
+      }
+    },
+    "trim": {
+      "description": "去除首尾空白",
+      "args": [
+        {
+          "type": "jsonlang.String",
+          "name": "s",
+          "required": true,
+          "description": "要处理的字符串"
+        }
+      ],
+      "return": {
+        "type": "jsonlang.String",
+        "description": "处理后的字符串"
+      }
+    },
+    "split": {
+      "description": "分割字符串",
+      "args": [
+        {
+          "type": "jsonlang.String",
+          "name": "s",
+          "required": true,
+          "description": "要分割的字符串"
+        },
+        {
+          "type": "jsonlang.String",
+          "name": "delimiter",
+          "required": false,
+          "description": "分隔符",
+          "default": " "
+        }
+      ],
+      "return": {
+        "type": "jsonlang.Array",
+        "description": "分割后的字符串数组"
+      }
+    },
+    "join": {
+      "description": "连接数组",
+      "args": [
+        {
+          "type": "jsonlang.Array",
+          "name": "array",
+          "required": true,
+          "description": "要连接的数组"
+        },
+        {
+          "type": "jsonlang.String",
+          "name": "delimiter",
+          "required": false,
+          "description": "连接符",
+          "default": ""
+        }
+      ],
+      "return": {
+        "type": "jsonlang.String",
+        "description": "连接后的字符串"
+      }
+    },
+    "array_create": {
+      "description": "创建数组",
+      "args": [
+        {
+          "type": "jsonlang.Any",
+          "name": "items",
+          "required": true,
+          "description": "数组元素",
+          "variadic": true
+        }
+      ],
+      "return": {
+        "type": "jsonlang.Array",
+        "description": "创建的数组"
+      }
+    },
+    "array_push": {
+      "description": "向数组添加元素",
+      "args": [
+        {
+          "type": "jsonlang.Array",
+          "name": "array",
+          "required": true,
+          "description": "目标数组"
+        },
+        {
+          "type": "jsonlang.Any",
+          "name": "item",
+          "required": true,
+          "description": "要添加的元素"
+        }
+      ],
+      "return": {
+        "type": "jsonlang.Array",
+        "description": "添加元素后的数组"
+      }
+    },
+    "array_pop": {
+      "description": "从数组移除最后一个元素",
+      "args": [
+        {
+          "type": "jsonlang.Array",
+          "name": "array",
+          "required": true,
+          "description": "目标数组"
+        }
+      ],
+      "return": {
+        "type": "jsonlang.Any",
+        "description": "被移除的元素"
+      }
+    },
+    "array_get": {
+      "description": "获取数组元素",
+      "args": [
+        {
+          "type": "jsonlang.Array",
+          "name": "array",
+          "required": true,
+          "description": "目标数组"
+        },
+        {
+          "type": "jsonlang.Number",
+          "name": "index",
+          "required": true,
+          "description": "元素索引"
+        }
+      ],
+      "return": {
+        "type": "jsonlang.Any",
+        "description": "数组元素"
+      }
+    },
+    "array_set": {
+      "description": "设置数组元素",
+      "args": [
+        {
+          "type": "jsonlang.Array",
+          "name": "array",
+          "required": true,
+          "description": "目标数组"
+        },
+        {
+          "type": "jsonlang.Number",
+          "name": "index",
+          "required": true,
+          "description": "元素索引"
+        },
+        {
+          "type": "jsonlang.Any",
+          "name": "value",
+          "required": true,
+          "description": "要设置的值"
+        }
+      ],
+      "return": {
+        "type": "jsonlang.Array",
+        "description": "设置元素后的数组"
+      }
+    },
+    "array_length": {
+      "description": "获取数组长度",
+      "args": [
+        {
+          "type": "jsonlang.Array",
+          "name": "array",
+          "required": true,
+          "description": "目标数组"
+        }
+      ],
+      "return": {
+        "type": "jsonlang.Number",
+        "description": "数组长度"
+      }
+    },
+    "array_sort": {
+      "description": "排序数组",
+      "args": [
+        {
+          "type": "jsonlang.Array",
+          "name": "array",
+          "required": true,
+          "description": "要排序的数组"
+        },
+        {
+          "type": "jsonlang.Boolean",
+          "name": "reverse",
+          "required": false,
+          "description": "是否逆序",
+          "default": false
+        }
+      ],
+      "return": {
+        "type": "jsonlang.Array",
+        "description": "排序后的数组"
+      }
+    },
+    "array_reverse": {
+      "description": "反转数组",
+      "args": [
+        {
+          "type": "jsonlang.Array",
+          "name": "array",
+          "required": true,
+          "description": "要反转的数组"
+        }
+      ],
+      "return": {
+        "type": "jsonlang.Array",
+        "description": "反转后的数组"
+      }
+    },
+    "sleep": {
+      "description": "暂停执行",
+      "args": [
+        {
+          "type": "jsonlang.Number",
+          "name": "seconds",
+          "required": true,
+          "description": "暂停秒数"
+        }
+      ],
+      "return": {
+        "type": "jsonlang.Unit",
+        "description": "无返回值"
+      }
+    },
+    "random": {
+      "description": "生成0-1之间的随机数",
+      "args": [],
+      "return": {
+        "type": "jsonlang.Number",
+        "description": "随机数"
+      }
+    },
+    "random_int": {
+      "description": "生成指定范围内的随机整数",
+      "args": [
+        {
+          "type": "jsonlang.Number",
+          "name": "min_val",
+          "required": true,
+          "description": "最小值"
+        },
+        {
+          "type": "jsonlang.Number",
+          "name": "max_val",
+          "required": true,
+          "description": "最大值"
+        }
+      ],
+      "return": {
+        "type": "jsonlang.Number",
+        "description": "随机整数"
+      }
+    },
+    "time_now": {
+      "description": "获取当前时间戳",
+      "args": [],
+      "return": {
+        "type": "jsonlang.Number",
+        "description": "当前时间戳"
+      }
+    },
+    "exit": {
+      "description": "退出程序",
+      "args": [
+        {
+          "type": "jsonlang.Number",
+          "name": "code",
+          "required": false,
+          "description": "退出码",
+          "default": 0
+        }
+      ],
+      "return": {
+        "type": "jsonlang.Unit",
+        "description": "无返回值"
+      }
+    },
+    "to_string": {
+      "description": "转换为字符串",
+      "args": [
+        {
+          "type": "jsonlang.Any",
+          "name": "value",
+          "required": true,
+          "description": "要转换的值"
+        }
+      ],
+      "return": {
+        "type": "jsonlang.String",
+        "description": "字符串表示"
+      }
+    },
+    "to_number": {
+      "description": "转换为数字",
+      "args": [
+        {
+          "type": "jsonlang.Any",
+          "name": "value",
+          "required": true,
+          "description": "要转换的值"
+        }
+      ],
+      "return": {
+        "type": "jsonlang.Number",
+        "description": "数字值"
+      }
+    },
+    "to_boolean": {
+      "description": "转换为布尔值",
+      "args": [
+        {
+          "type": "jsonlang.Any",
+          "name": "value",
+          "required": true,
+          "description": "要转换的值"
+        }
+      ],
+      "return": {
+        "type": "jsonlang.Boolean",
+        "description": "布尔值"
+      }
+    },
+    "is_empty": {
+      "description": "检查是否为空",
+      "args": [
+        {
+          "type": "jsonlang.Any",
+          "name": "value",
+          "required": true,
+          "description": "要检查的值"
+        }
+      ],
+      "return": {
+        "type": "jsonlang.Boolean",
+        "description": "是否为空"
+      }
+    },
+    "is_number": {
+      "description": "检查是否为数字",
+      "args": [
+        {
+          "type": "jsonlang.Any",
+          "name": "value",
+          "required": true,
+          "description": "要检查的值"
+        }
+      ],
+      "return": {
+        "type": "jsonlang.Boolean",
+        "description": "是否为数字"
+      }
+    },
+    "is_string": {
+      "description": "检查是否为字符串",
+      "args": [
+        {
+          "type": "jsonlang.Any",
+          "name": "value",
+          "required": true,
+          "description": "要检查的值"
+        }
+      ],
+      "return": {
+        "type": "jsonlang.Boolean",
+        "description": "是否为字符串"
+      }
+    },
+    "is_array": {
+      "description": "检查是否为数组",
+      "args": [
+        {
+          "type": "jsonlang.Any",
+          "name": "value",
+          "required": true,
+          "description": "要检查的值"
+        }
+      ],
+      "return": {
+        "type": "jsonlang.Boolean",
+        "description": "是否为数组"
+      }
+    },
+    "is_boolean": {
+      "description": "检查是否为布尔值",
+      "args": [
+        {
+          "type": "jsonlang.Any",
+          "name": "value",
+          "required": true,
+          "description": "要检查的值"
+        }
+      ],
+      "return": {
+        "type": "jsonlang.Boolean",
+        "description": "是否为布尔值"
+      }
+    }
+  },
+  "types": {
+    "Unit": {
+      "type": "unit",
+      "description": "无返回值类型"
+    },
+    "String": {
+      "type": "string",
+      "description": "字符串类型"
+    },
+    "Number": {
+      "type": "number",
+      "description": "数字类型"
+    },
+    "Boolean": {
+      "type": "boolean",
+      "description": "布尔类型"
+    },
+    "Array": {
+      "type": "array",
+      "description": "数组类型"
+    },
+    "Any": {
+      "type": "any",
+      "description": "任意类型"
+    }
+  }
+}

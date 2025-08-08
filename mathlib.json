@@ -1,0 +1,88 @@
+{
+  "metadata": {
+    "package": "cn.llonvne.mathlib"
+  },
+  "imports": {
+    "jsonlang.String": "String",
+    "jsonlang.Number": "Number",
+    "jsonlang.Unit": "Unit",
+    "jsonlang.io.println": "println"
+  },
+  "functions": {
+    "add": {
+      "visibility": "public",
+      "args": ["a", "b"],
+      "return": "imports.Number",
+      "actions": [
+        {
+          "type": "function_call",
+          "function": "imports.println",
+          "args": [
+            {
+              "type": "imports.String",
+              "value": "计算 "
+            },
+            {
+              "type": "imports.Number",
+              "value": 0
+            },
+            {
+              "type": "imports.String",
+              "value": " + "
+            },
+            {
+              "type": "imports.Number",
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    "multiply": {
+      "visibility": "public",
+      "args": ["a", "b"],
+      "return": "imports.Number",
+      "actions": [
+        {
+          "type": "function_call",
+          "function": "imports.println",
+          "args": [
+            {
+              "type": "imports.String",
+              "value": "计算 "
+            },
+            {
+              "type": "imports.Number",
+              "value": 0
+            },
+            {
+              "type": "imports.String",
+              "value": " * "
+            },
+            {
+              "type": "imports.Number",
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    "greet": {
+      "visibility": "public",
+      "args": [],
+      "return": "imports.Unit",
+      "actions": [
+        {
+          "type": "function_call",
+          "function": "imports.println",
+          "args": [
+            {
+              "type": "imports.String",
+              "value": "欢迎使用数学库！"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
