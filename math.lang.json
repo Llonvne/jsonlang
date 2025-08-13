@@ -1,0 +1,278 @@
+{
+  "types": {
+    "Point": {
+      "kind": "struct",
+      "fields": {
+        "x": {
+          "type": {
+            "namespace": "jsonlang",
+            "type": "Double"
+          }
+        },
+        "y": {
+          "type": {
+            "namespace": "jsonlang",
+            "type": "Double"
+          }
+        }
+      }
+    },
+    "Shape": {
+      "kind": "enum",
+      "variants": {
+        "Circle": {
+          "type": {
+            "namespace": "jsonlang",
+            "type": "Double"
+          }
+        },
+        "Rectangle": {
+          "type": {
+            "namespace": "file",
+            "type": "Point"
+          }
+        },
+        "Triangle": null
+      }
+    }
+  },
+  "constants": {
+    "PI": {
+      "type": {
+        "namespace": "jsonlang",
+        "type": "Double"
+      },
+      "value": 3.14159
+    },
+    "E": {
+      "type": {
+        "namespace": "jsonlang",
+        "type": "Double"
+      },
+      "value": 2.71828
+    }
+  },
+  "functions": {
+    "add": {
+      "modifiers": {
+        "visibility": "public",
+        "inline": true
+      },
+      "return": {
+        "namespace": "jsonlang",
+        "type": "Double"
+      },
+      "args": [
+        {
+          "name": "a",
+          "type": {
+            "namespace": "jsonlang",
+            "type": "Double"
+          }
+        },
+        {
+          "name": "b",
+          "type": {
+            "namespace": "jsonlang",
+            "type": "Double"
+          }
+        }
+      ],
+      "body": [
+        {
+          "type": "return",
+          "value": {
+            "type": "binary",
+            "operator": "+",
+            "left": {
+              "type": "identifier",
+              "name": "a"
+            },
+            "right": {
+              "type": "identifier",
+              "name": "b"
+            }
+          }
+        }
+      ]
+    },
+    "multiply": {
+      "modifiers": {
+        "visibility": "public"
+      },
+      "return": {
+        "namespace": "jsonlang",
+        "type": "Double"
+      },
+      "args": [
+        {
+          "name": "x",
+          "type": {
+            "namespace": "jsonlang",
+            "type": "Double"
+          }
+        },
+        {
+          "name": "y",
+          "type": {
+            "namespace": "jsonlang",
+            "type": "Double"
+          }
+        }
+      ],
+      "body": [
+        {
+          "type": "return",
+          "value": {
+            "type": "binary",
+            "operator": "*",
+            "left": {
+              "type": "identifier",
+              "name": "x"
+            },
+            "right": {
+              "type": "identifier",
+              "name": "y"
+            }
+          }
+        }
+      ]
+    },
+    "distance": {
+      "modifiers": {
+        "visibility": "public"
+      },
+      "return": {
+        "namespace": "jsonlang",
+        "type": "Double"
+      },
+      "args": [
+        {
+          "name": "p1",
+          "type": {
+            "namespace": "file",
+            "type": "Point"
+          }
+        },
+        {
+          "name": "p2",
+          "type": {
+            "namespace": "file",
+            "type": "Point"
+          }
+        }
+      ],
+      "body": [
+        {
+          "type": "variable",
+          "name": "dx",
+          "mutable": false,
+          "value": {
+            "type": "binary",
+            "operator": "-",
+            "left": {
+              "type": "member",
+              "target": {
+                "type": "identifier",
+                "name": "p2"
+              },
+              "property": "x"
+            },
+            "right": {
+              "type": "member",
+              "target": {
+                "type": "identifier",
+                "name": "p1"
+              },
+              "property": "x"
+            }
+          }
+        },
+        {
+          "type": "variable",
+          "name": "dy",
+          "mutable": false,
+          "value": {
+            "type": "binary",
+            "operator": "-",
+            "left": {
+              "type": "member",
+              "target": {
+                "type": "identifier",
+                "name": "p2"
+              },
+              "property": "y"
+            },
+            "right": {
+              "type": "member",
+              "target": {
+                "type": "identifier",
+                "name": "p1"
+              },
+              "property": "y"
+            }
+          }
+        },
+        {
+          "type": "return",
+          "value": {
+            "type": "call",
+            "value": {
+              "namespace": "jsonlang",
+              "function": "sqrt",
+              "args": [
+                {
+                  "type": "binary",
+                  "operator": "+",
+                  "left": {
+                    "type": "binary",
+                    "operator": "*",
+                    "left": {
+                      "type": "identifier",
+                      "name": "dx"
+                    },
+                    "right": {
+                      "type": "identifier",
+                      "name": "dx"
+                    }
+                  },
+                  "right": {
+                    "type": "binary",
+                    "operator": "*",
+                    "left": {
+                      "type": "identifier",
+                      "name": "dy"
+                    },
+                    "right": {
+                      "type": "identifier",
+                      "name": "dy"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "returnANumber": {
+      "modifiers": {
+        "visibility": "public"
+      },
+      "return": {
+        "namespace": "jsonlang",
+        "type": "Int"
+      },
+      "args": [],
+      "body": [
+        {
+          "type": "return",
+          "value": {
+            "type": "literal",
+            "value": 42
+          }
+        }
+      ]
+    }
+  }
+}

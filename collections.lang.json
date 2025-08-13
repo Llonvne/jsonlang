@@ -1,0 +1,379 @@
+{
+  "types": {
+    "List": {
+      "kind": "generic",
+      "parameters": ["T"],
+      "definition": {
+        "namespace": "jsonlang",
+        "type": "Array",
+        "elementType": {
+          "namespace": "generic",
+          "type": "T"
+        }
+      }
+    },
+    "Map": {
+      "kind": "generic",
+      "parameters": ["K", "V"],
+      "definition": {
+        "namespace": "jsonlang",
+        "type": "Object",
+        "keyType": {
+          "namespace": "generic",
+          "type": "K"
+        },
+        "valueType": {
+          "namespace": "generic",
+          "type": "V"
+        }
+      }
+    },
+    "Optional": {
+      "kind": "generic",
+      "parameters": ["T"],
+      "definition": {
+        "namespace": "jsonlang",
+        "type": "Optional",
+        "innerType": {
+          "namespace": "generic",
+          "type": "T"
+        }
+      }
+    }
+  },
+  "functions": {
+    "filter": {
+      "modifiers": {
+        "visibility": "public",
+        "inline": true
+      },
+      "generics": ["T"],
+      "return": {
+        "namespace": "file",
+        "type": "List",
+        "typeArgs": [
+          {
+            "namespace": "generic",
+            "type": "T"
+          }
+        ]
+      },
+      "args": [
+        {
+          "name": "list",
+          "type": {
+            "namespace": "file",
+            "type": "List",
+            "typeArgs": [
+              {
+                "namespace": "generic",
+                "type": "T"
+              }
+            ]
+          }
+        },
+        {
+          "name": "predicate",
+          "type": {
+            "namespace": "jsonlang",
+            "type": "Function",
+            "parameterTypes": [
+              {
+                "namespace": "generic",
+                "type": "T"
+              }
+            ],
+            "returnType": {
+              "namespace": "jsonlang",
+              "type": "Boolean"
+            }
+          }
+        }
+      ],
+      "body": [
+        {
+          "type": "variable",
+          "name": "result",
+          "mutable": true,
+          "value": {
+            "type": "array",
+            "elements": []
+          }
+        },
+        {
+          "type": "for",
+          "iterator": "item",
+          "iterable": {
+            "type": "identifier",
+            "name": "list"
+          },
+          "body": {
+            "type": "block",
+            "statements": [
+              {
+                "type": "if",
+                "condition": {
+                  "type": "call",
+                  "value": {
+                    "namespace": "local",
+                    "function": "predicate",
+                    "args": [
+                      {
+                        "type": "identifier",
+                        "name": "item"
+                      }
+                    ]
+                  }
+                },
+                "then": {
+                  "type": "expression",
+                  "value": {
+                    "type": "call",
+                    "value": {
+                      "namespace": "jsonlang",
+                      "function": "push",
+                      "args": [
+                        {
+                          "type": "identifier",
+                          "name": "result"
+                        },
+                        {
+                          "type": "identifier",
+                          "name": "item"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "return",
+          "value": {
+            "type": "identifier",
+            "name": "result"
+          }
+        }
+      ]
+    },
+    "map": {
+      "modifiers": {
+        "visibility": "public",
+        "inline": true
+      },
+      "generics": ["T", "R"],
+      "return": {
+        "namespace": "file",
+        "type": "List",
+        "typeArgs": [
+          {
+            "namespace": "generic",
+            "type": "R"
+          }
+        ]
+      },
+      "args": [
+        {
+          "name": "list",
+          "type": {
+            "namespace": "file",
+            "type": "List",
+            "typeArgs": [
+              {
+                "namespace": "generic",
+                "type": "T"
+              }
+            ]
+          }
+        },
+        {
+          "name": "transform",
+          "type": {
+            "namespace": "jsonlang",
+            "type": "Function",
+            "parameterTypes": [
+              {
+                "namespace": "generic",
+                "type": "T"
+              }
+            ],
+            "returnType": {
+              "namespace": "generic",
+              "type": "R"
+            }
+          }
+        }
+      ],
+      "body": [
+        {
+          "type": "variable",
+          "name": "result",
+          "mutable": true,
+          "value": {
+            "type": "array",
+            "elements": []
+          }
+        },
+        {
+          "type": "for",
+          "iterator": "item",
+          "iterable": {
+            "type": "identifier",
+            "name": "list"
+          },
+          "body": {
+            "type": "block",
+            "statements": [
+              {
+                "type": "expression",
+                "value": {
+                  "type": "call",
+                  "value": {
+                    "namespace": "jsonlang",
+                    "function": "push",
+                    "args": [
+                      {
+                        "type": "identifier",
+                        "name": "result"
+                      },
+                      {
+                        "type": "call",
+                        "value": {
+                          "namespace": "local",
+                          "function": "transform",
+                          "args": [
+                            {
+                              "type": "identifier",
+                              "name": "item"
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "return",
+          "value": {
+            "type": "identifier",
+            "name": "result"
+          }
+        }
+      ]
+    },
+    "reduce": {
+      "modifiers": {
+        "visibility": "public"
+      },
+      "generics": ["T", "R"],
+      "return": {
+        "namespace": "generic",
+        "type": "R"
+      },
+      "args": [
+        {
+          "name": "list",
+          "type": {
+            "namespace": "file",
+            "type": "List",
+            "typeArgs": [
+              {
+                "namespace": "generic",
+                "type": "T"
+              }
+            ]
+          }
+        },
+        {
+          "name": "initial",
+          "type": {
+            "namespace": "generic",
+            "type": "R"
+          }
+        },
+        {
+          "name": "accumulator",
+          "type": {
+            "namespace": "jsonlang",
+            "type": "Function",
+            "parameterTypes": [
+              {
+                "namespace": "generic",
+                "type": "R"
+              },
+              {
+                "namespace": "generic",
+                "type": "T"
+              }
+            ],
+            "returnType": {
+              "namespace": "generic",
+              "type": "R"
+            }
+          }
+        }
+      ],
+      "body": [
+        {
+          "type": "variable",
+          "name": "acc",
+          "mutable": true,
+          "value": {
+            "type": "identifier",
+            "name": "initial"
+          }
+        },
+        {
+          "type": "for",
+          "iterator": "item",
+          "iterable": {
+            "type": "identifier",
+            "name": "list"
+          },
+          "body": {
+            "type": "block",
+            "statements": [
+              {
+                "type": "assign",
+                "target": {
+                  "type": "identifier",
+                  "name": "acc"
+                },
+                "value": {
+                  "type": "call",
+                  "value": {
+                    "namespace": "local",
+                    "function": "accumulator",
+                    "args": [
+                      {
+                        "type": "identifier",
+                        "name": "acc"
+                      },
+                      {
+                        "type": "identifier",
+                        "name": "item"
+                      }
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "return",
+          "value": {
+            "type": "identifier",
+            "name": "acc"
+          }
+        }
+      ]
+    }
+  }
+}

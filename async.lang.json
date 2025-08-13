@@ -1,0 +1,342 @@
+{
+  "types": {
+    "Future": {
+      "kind": "generic",
+      "parameters": ["T"],
+      "definition": {
+        "namespace": "jsonlang",
+        "type": "Future",
+        "valueType": {
+          "namespace": "generic",
+          "type": "T"
+        }
+      }
+    },
+    "Result": {
+      "kind": "enum",
+      "variants": {
+        "Success": {
+          "type": {
+            "namespace": "jsonlang",
+            "type": "Any"
+          }
+        },
+        "Error": {
+          "type": {
+            "namespace": "jsonlang",
+            "type": "String"
+          }
+        }
+      }
+    }
+  },
+  "functions": {
+    "delay": {
+      "modifiers": {
+        "visibility": "public",
+        "async": true
+      },
+      "return": {
+        "namespace": "jsonlang",
+        "type": "Unit"
+      },
+      "args": [
+        {
+          "name": "milliseconds",
+          "type": {
+            "namespace": "jsonlang",
+            "type": "Int"
+          }
+        }
+      ],
+      "body": [
+        {
+          "type": "expression",
+          "value": {
+            "type": "call",
+            "value": {
+              "namespace": "jsonlang",
+              "function": "sleep",
+              "args": [
+                {
+                  "type": "identifier",
+                  "name": "milliseconds"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "fetchData": {
+      "modifiers": {
+        "visibility": "public",
+        "async": true
+      },
+      "return": {
+        "namespace": "file",
+        "type": "Future",
+        "typeArgs": [
+          {
+            "namespace": "jsonlang",
+            "type": "String"
+          }
+        ]
+      },
+      "args": [
+        {
+          "name": "url",
+          "type": {
+            "namespace": "jsonlang",
+            "type": "String"
+          }
+        }
+      ],
+      "body": [
+        {
+          "type": "try",
+          "tryBlock": {
+            "type": "block",
+            "statements": [
+              {
+                "type": "variable",
+                "name": "response",
+                "mutable": false,
+                "value": {
+                  "type": "call",
+                  "value": {
+                    "namespace": "jsonlang",
+                    "function": "httpGet",
+                    "args": [
+                      {
+                        "type": "identifier",
+                        "name": "url"
+                      }
+                    ]
+                  }
+                }
+              },
+              {
+                "type": "return",
+                "value": {
+                  "type": "call",
+                  "value": {
+                    "namespace": "jsonlang",
+                    "function": "success",
+                    "args": [
+                      {
+                        "type": "identifier",
+                        "name": "response"
+                      }
+                    ]
+                  }
+                }
+              }
+            ]
+          },
+          "catchClauses": [
+            {
+              "exceptionType": {
+                "namespace": "jsonlang",
+                "type": "Exception"
+              },
+              "variable": "e",
+              "body": {
+                "type": "block",
+                "statements": [
+                  {
+                    "type": "return",
+                    "value": {
+                      "type": "call",
+                      "value": {
+                        "namespace": "jsonlang",
+                        "function": "error",
+                        "args": [
+                          {
+                            "type": "member",
+                            "target": {
+                              "type": "identifier",
+                              "name": "e"
+                            },
+                            "property": "message"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "processAsync": {
+      "modifiers": {
+        "visibility": "public",
+        "async": true
+      },
+      "return": {
+        "namespace": "jsonlang",
+        "type": "String"
+      },
+      "args": [
+        {
+          "name": "data",
+          "type": {
+            "namespace": "jsonlang",
+            "type": "String"
+          }
+        }
+      ],
+      "body": [
+        {
+          "type": "expression",
+          "value": {
+            "type": "call",
+            "value": {
+              "namespace": "file",
+              "function": "delay",
+              "args": [
+                {
+                  "type": "literal",
+                  "value": 1000
+                }
+              ]
+            }
+          }
+        },
+        {
+          "type": "variable",
+          "name": "processed",
+          "mutable": false,
+          "value": {
+            "type": "binary",
+            "operator": "+",
+            "left": {
+              "type": "literal",
+              "value": "Processed: "
+            },
+            "right": {
+              "type": "identifier",
+              "name": "data"
+            }
+          }
+        },
+        {
+          "type": "return",
+          "value": {
+            "type": "identifier",
+            "name": "processed"
+          }
+        }
+      ]
+    },
+    "parallel": {
+      "modifiers": {
+        "visibility": "public",
+        "async": true
+      },
+      "generics": ["T"],
+      "return": {
+        "namespace": "jsonlang",
+        "type": "Array",
+        "elementType": {
+          "namespace": "generic",
+          "type": "T"
+        }
+      },
+      "args": [
+        {
+          "name": "tasks",
+          "type": {
+            "namespace": "jsonlang",
+            "type": "Array",
+            "elementType": {
+              "namespace": "jsonlang",
+              "type": "Function",
+              "parameterTypes": [],
+              "returnType": {
+                "namespace": "file",
+                "type": "Future",
+                "typeArgs": [
+                  {
+                    "namespace": "generic",
+                    "type": "T"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ],
+      "body": [
+        {
+          "type": "variable",
+          "name": "futures",
+          "mutable": false,
+          "value": {
+            "type": "call",
+            "value": {
+              "namespace": "collections",
+              "function": "map",
+              "args": [
+                {
+                  "type": "identifier",
+                  "name": "tasks"
+                },
+                {
+                  "type": "lambda",
+                  "parameters": [
+                    {
+                      "name": "task",
+                      "type": {
+                        "namespace": "jsonlang",
+                        "type": "Function",
+                        "parameterTypes": [],
+                        "returnType": {
+                          "namespace": "file",
+                          "type": "Future",
+                          "typeArgs": [
+                            {
+                              "namespace": "generic",
+                              "type": "T"
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  ],
+                  "body": {
+                    "type": "call",
+                    "value": {
+                      "namespace": "local",
+                      "function": "task",
+                      "args": []
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "type": "return",
+          "value": {
+            "type": "call",
+            "value": {
+              "namespace": "jsonlang",
+              "function": "awaitAll",
+              "args": [
+                {
+                  "type": "identifier",
+                  "name": "futures"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  }
+}

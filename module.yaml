@@ -1,0 +1,10 @@
+product: jvm/app
+settings:
+  kotlin:
+    serialization: json
+    languageVersion: 2.2
+    freeCompilerArgs: [ -Xcontext-parameters , -Xwhen-guards ]
+
+dependencies:
+  - org.junit.jupiter:junit-jupiter:5.10.0
+  - org.junit.jupiter:junit-jupiter-engine:5.10.0

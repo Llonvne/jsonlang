@@ -1,0 +1,483 @@
+{
+  "types": {
+    "Status": {
+      "kind": "enum",
+      "variants": {
+        "Active": null,
+        "Inactive": null,
+        "Pending": {
+          "type": {
+            "namespace": "jsonlang",
+            "type": "String"
+          }
+        }
+      }
+    },
+    "Grade": {
+      "kind": "enum",
+      "variants": {
+        "A": null,
+        "B": null,
+        "C": null,
+        "D": null,
+        "F": null
+      }
+    }
+  },
+  "functions": {
+    "factorial": {
+      "modifiers": {
+        "visibility": "public"
+      },
+      "return": {
+        "namespace": "jsonlang",
+        "type": "Int"
+      },
+      "args": [
+        {
+          "name": "n",
+          "type": {
+            "namespace": "jsonlang",
+            "type": "Int"
+          }
+        }
+      ],
+      "body": [
+        {
+          "type": "if",
+          "condition": {
+            "type": "binary",
+            "operator": "<=",
+            "left": {
+              "type": "identifier",
+              "name": "n"
+            },
+            "right": {
+              "type": "literal",
+              "value": 1
+            }
+          },
+          "then": {
+            "type": "return",
+            "value": {
+              "type": "literal",
+              "value": 1
+            }
+          },
+          "else": {
+            "type": "return",
+            "value": {
+              "type": "binary",
+              "operator": "*",
+              "left": {
+                "type": "identifier",
+                "name": "n"
+              },
+              "right": {
+                "type": "call",
+                "value": {
+                  "namespace": "file",
+                  "function": "factorial",
+                  "args": [
+                    {
+                      "type": "binary",
+                      "operator": "-",
+                      "left": {
+                        "type": "identifier",
+                        "name": "n"
+                      },
+                      "right": {
+                        "type": "literal",
+                        "value": 1
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "fibonacci": {
+      "modifiers": {
+        "visibility": "public"
+      },
+      "return": {
+        "namespace": "jsonlang",
+        "type": "Int"
+      },
+      "args": [
+        {
+          "name": "n",
+          "type": {
+            "namespace": "jsonlang",
+            "type": "Int"
+          }
+        }
+      ],
+      "body": [
+        {
+          "type": "match",
+          "expression": {
+            "type": "identifier",
+            "name": "n"
+          },
+          "cases": [
+            {
+              "pattern": {
+                "type": "literal",
+                "value": 0
+              },
+              "body": {
+                "type": "return",
+                "value": {
+                  "type": "literal",
+                  "value": 0
+                }
+              }
+            },
+            {
+              "pattern": {
+                "type": "literal",
+                "value": 1
+              },
+              "body": {
+                "type": "return",
+                "value": {
+                  "type": "literal",
+                  "value": 1
+                }
+              }
+            }
+          ],
+          "default": {
+            "type": "return",
+            "value": {
+              "type": "binary",
+              "operator": "+",
+              "left": {
+                "type": "call",
+                "value": {
+                  "namespace": "file",
+                  "function": "fibonacci",
+                  "args": [
+                    {
+                      "type": "binary",
+                      "operator": "-",
+                      "left": {
+                        "type": "identifier",
+                        "name": "n"
+                      },
+                      "right": {
+                        "type": "literal",
+                        "value": 1
+                      }
+                    }
+                  ]
+                }
+              },
+              "right": {
+                "type": "call",
+                "value": {
+                  "namespace": "file",
+                  "function": "fibonacci",
+                  "args": [
+                    {
+                      "type": "binary",
+                      "operator": "-",
+                      "left": {
+                        "type": "identifier",
+                        "name": "n"
+                      },
+                      "right": {
+                        "type": "literal",
+                        "value": 2
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "gradeToGPA": {
+      "modifiers": {
+        "visibility": "public"
+      },
+      "return": {
+        "namespace": "jsonlang",
+        "type": "Double"
+      },
+      "args": [
+        {
+          "name": "grade",
+          "type": {
+            "namespace": "file",
+            "type": "Grade"
+          }
+        }
+      ],
+      "body": [
+        {
+          "type": "match",
+          "expression": {
+            "type": "identifier",
+            "name": "grade"
+          },
+          "cases": [
+            {
+              "pattern": {
+                "type": "constructor",
+                "constructor": "A"
+              },
+              "body": {
+                "type": "return",
+                "value": {
+                  "type": "literal",
+                  "value": 4.0
+                }
+              }
+            },
+            {
+              "pattern": {
+                "type": "constructor",
+                "constructor": "B"
+              },
+              "body": {
+                "type": "return",
+                "value": {
+                  "type": "literal",
+                  "value": 3.0
+                }
+              }
+            },
+            {
+              "pattern": {
+                "type": "constructor",
+                "constructor": "C"
+              },
+              "body": {
+                "type": "return",
+                "value": {
+                  "type": "literal",
+                  "value": 2.0
+                }
+              }
+            },
+            {
+              "pattern": {
+                "type": "constructor",
+                "constructor": "D"
+              },
+              "body": {
+                "type": "return",
+                "value": {
+                  "type": "literal",
+                  "value": 1.0
+                }
+              }
+            },
+            {
+              "pattern": {
+                "type": "constructor",
+                "constructor": "F"
+              },
+              "body": {
+                "type": "return",
+                "value": {
+                  "type": "literal",
+                  "value": 0.0
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "processStatus": {
+      "modifiers": {
+        "visibility": "public"
+      },
+      "return": {
+        "namespace": "jsonlang",
+        "type": "String"
+      },
+      "args": [
+        {
+          "name": "status",
+          "type": {
+            "namespace": "file",
+            "type": "Status"
+          }
+        }
+      ],
+      "body": [
+        {
+          "type": "match",
+          "expression": {
+            "type": "identifier",
+            "name": "status"
+          },
+          "cases": [
+            {
+              "pattern": {
+                "type": "constructor",
+                "constructor": "Active"
+              },
+              "body": {
+                "type": "return",
+                "value": {
+                  "type": "literal",
+                  "value": "System is running"
+                }
+              }
+            },
+            {
+              "pattern": {
+                "type": "constructor",
+                "constructor": "Inactive"
+              },
+              "body": {
+                "type": "return",
+                "value": {
+                  "type": "literal",
+                  "value": "System is stopped"
+                }
+              }
+            },
+            {
+              "pattern": {
+                "type": "constructor",
+                "constructor": "Pending",
+                "args": [
+                  {
+                    "type": "variable",
+                    "name": "reason"
+                  }
+                ]
+              },
+              "body": {
+                "type": "return",
+                "value": {
+                  "type": "binary",
+                  "operator": "+",
+                  "left": {
+                    "type": "literal",
+                    "value": "System is pending: "
+                  },
+                  "right": {
+                    "type": "identifier",
+                    "name": "reason"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "countDown": {
+      "modifiers": {
+        "visibility": "public"
+      },
+      "return": {
+        "namespace": "jsonlang",
+        "type": "Unit"
+      },
+      "args": [
+        {
+          "name": "start",
+          "type": {
+            "namespace": "jsonlang",
+            "type": "Int"
+          }
+        }
+      ],
+      "body": [
+        {
+          "type": "variable",
+          "name": "i",
+          "mutable": true,
+          "value": {
+            "type": "identifier",
+            "name": "start"
+          }
+        },
+        {
+          "type": "while",
+          "condition": {
+            "type": "binary",
+            "operator": ">",
+            "left": {
+              "type": "identifier",
+              "name": "i"
+            },
+            "right": {
+              "type": "literal",
+              "value": 0
+            }
+          },
+          "body": {
+            "type": "block",
+            "statements": [
+              {
+                "type": "expression",
+                "value": {
+                  "type": "call",
+                  "value": {
+                    "namespace": "jsonlang",
+                    "function": "println",
+                    "args": [
+                      {
+                        "type": "identifier",
+                        "name": "i"
+                      }
+                    ]
+                  }
+                }
+              },
+              {
+                "type": "assign",
+                "target": {
+                  "type": "identifier",
+                  "name": "i"
+                },
+                "value": {
+                  "type": "binary",
+                  "operator": "-",
+                  "left": {
+                    "type": "identifier",
+                    "name": "i"
+                  },
+                  "right": {
+                    "type": "literal",
+                    "value": 1
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "expression",
+          "value": {
+            "type": "call",
+            "value": {
+              "namespace": "jsonlang",
+              "function": "println",
+              "args": [
+                {
+                  "type": "literal",
+                  "value": "Blast off!"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  }
+}

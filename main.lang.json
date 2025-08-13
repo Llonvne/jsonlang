@@ -1,0 +1,33 @@
+{
+  "imports": {
+    "jsonlang": {
+      "version": "0.0.1"
+    },
+    "math": {
+      "file": "./math.lang.json"
+    }
+  },
+  "functions": {
+    "main": {
+      "modifiers": {
+        "visibility": "public"
+      },
+      "return": {
+        "namespace": "jsonlang",
+        "type": "Unit"
+      },
+      "args": [
+      ],
+      "body": [
+        {
+          "type": "call",
+          "value": {
+            "namespace": "file",
+            "function": "returnANumber",
+            "args": []
+          }
+        }
+      ]
+    }
+  }
+}
